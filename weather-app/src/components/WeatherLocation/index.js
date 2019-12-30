@@ -2,7 +2,7 @@
 // Se importa la librería de React
 import React from 'react';
 import Location from './Location'
-import WeatherData from './WeatherData';
+import WeatherData from './WheaterData';
 
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 const WeatherLocation = () => (
