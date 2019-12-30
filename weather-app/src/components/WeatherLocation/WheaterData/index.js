@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import WeatherExtraInfo from './WeatherExtraInfo'
 import WeaterTemperature from './WeatherTemperature'
 import { CLOUD, CLOUDY, SUN, RAIN, SNOW, WINDY, FOG, } from '../../../constants/weathers' 
