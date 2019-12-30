@@ -7,7 +7,7 @@ import WeatherData from './WeatherData';
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 const WeatherLocation = () => (
     <div>
-        <Location city={"Guadalajara"}></Location>
+        <Location city={"Barcelona"}></Location>
         <WeatherData></WeatherData>
     </div>
 );
