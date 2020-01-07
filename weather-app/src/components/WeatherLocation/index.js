@@ -3,10 +3,11 @@
 import React from 'react';
 import Location from './Location'
 import WeatherData from './WheaterData';
+import './styles.css';
 
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 const WeatherLocation = () => (
-    <div>
+    <div className="weatherLocationCont">
         <Location city={"Barcelona"}></Location>
         <WeatherData></WeatherData>
     </div>
