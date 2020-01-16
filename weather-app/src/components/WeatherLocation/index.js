@@ -6,14 +6,7 @@ import { api_weather } from "../../constants/api_url";
 import Location from './Location'
 import WeatherData from './WheaterData';
 import './styles.css';
-import { SUN } from '../../constants/weathers' ;
 
-const data = {
-    temperature: 5,
-    weatherState: SUN,
-    humidity: 10,
-    wind: '10 m/s'
-};
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 class WeatherLocation extends Component {
     
@@ -21,18 +14,41 @@ class WeatherLocation extends Component {
         super();
         this.state = { 
             city: 'Mexico City',
-            data: data
+            data: null
         };
+        console.log("constructor");
     }
+
+    componentDidMount() {
+        console.log("componentDidMount");
+        this.handleUpdateClick();
+    }
+    
+    componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate");
+    }
+    
+    // Estos dos métodos serán eliminados en la versión 17 de React
+    /*
+    componentWillMount() {
+        console.log("UNSAFE componentWillMount");
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log("UNSAFE componentWillUpdate");
+    }*/
+    
+    
 
     handleUpdateClick = () => {
         // Declarar un fetch para recuperar la información del servidor
         fetch(api_weather).then(resolve =>{
             return resolve.json();
         }).then(data => {
+            console.log("Resultado del handleUpdateClick");
             const newWeather = transformWeather(data);
             console.log(newWeather)
-            debugger;
+            //debugger;
             this.setState({
                 data: newWeather
             });
@@ -40,14 +56,13 @@ class WeatherLocation extends Component {
     } 
 
     render() {
-
+        console.log("render");
         const { city, data } = this.state;
 
         return (
             <div className="weatherLocationCont">
                 <Location city={ city }></Location>
-                <WeatherData data={ data }></WeatherData>
-                <button onClick={ this.handleUpdateClick }>Actualizar</button>
+                { data ? <WeatherData data={ data }></WeatherData> : "Cargando..." }
             </div>
         );
     }
