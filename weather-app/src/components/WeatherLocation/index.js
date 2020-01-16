@@ -1,19 +1,12 @@
 // Generación de componente
 // Se importa la librería de React
 import React, { Component } from 'react';
-import convert from 'convert-units';
+import transformWeather from "../../services/transformWeather";
+import { api_weather } from "../../constants/api_url";
 import Location from './Location'
 import WeatherData from './WheaterData';
 import './styles.css';
 import { SUN } from '../../constants/weathers' ;
-
-// constantes para el API
-const location = "Mexico City,mx";
-const api_key = 'a761f2c4f40ca915b2a64b67b609ab90';
-const url_base_weather = 'https://api.openweathermap.org/data/2.5/weather';
-
-// Sumatoria de la URL
-const api_weather = `${url_base_weather}?q=${location}&appid=${api_key}`;
 
 const data = {
     temperature: 5,
@@ -32,36 +25,12 @@ class WeatherLocation extends Component {
         };
     }
 
-    getTemp = kelvin => {
-        return convert(kelvin).from('K').to('C').toFixed(2);
-    }
-
-    getWeatherState = weather_data => {
-        return SUN
-    };
-
-    getData = weather_data => {
-        const { humidity, temp } = weather_data.main;
-        const { speed } = weather_data.wind;
-        const weatherState = SUN;
-        const temperature = this.getTemp(temp);
-
-        const data = {
-            humidity,
-            temperature: temperature,
-            weatherState,
-            wind: `${speed} m/s`
-        };
-
-        return data;
-    };
-
     handleUpdateClick = () => {
         // Declarar un fetch para recuperar la información del servidor
         fetch(api_weather).then(resolve =>{
             return resolve.json();
         }).then(data => {
-            const newWeather = this.getData(data);
+            const newWeather = transformWeather(data);
             console.log(newWeather)
             debugger;
             this.setState({
