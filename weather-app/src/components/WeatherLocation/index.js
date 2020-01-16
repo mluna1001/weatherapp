@@ -6,6 +6,14 @@ import WeatherData from './WheaterData';
 import './styles.css';
 import { SUN, WINDY } from '../../constants/weathers' ;
 
+// constantes para el API
+const location = "Mexico City,mx";
+const api_key = 'a761f2c4f40ca915b2a64b67b609ab90';
+const url_base_weather = 'https://api.openweathermap.org/data/2.5/weather';
+
+// Sumatoria de la URL
+const api_weather = `${url_base_weather}?q=${location}&appid=${api_key}`;
+
 const data = {
     temperature: 5,
     weatherState: SUN,
@@ -32,7 +40,16 @@ class WeatherLocation extends Component {
     }
 
     handleUpdateClick = () => {
+        // Declarar un fetch para recuperar la información del servidor
+        fetch(api_weather).then(resolve =>{
+            return resolve.json();
+        }).then(data => {
+            console.log(data)
+            debugger;
+        });
+
         console.log('actualizado');
+
         this.setState({ data: data2})
     } 
 
