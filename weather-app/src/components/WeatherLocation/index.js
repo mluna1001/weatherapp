@@ -1,10 +1,11 @@
 // Generación de componente
 // Se importa la librería de React
 import React, { Component } from 'react';
+import convert from 'convert-units';
 import Location from './Location'
 import WeatherData from './WheaterData';
 import './styles.css';
-import { SUN, WINDY } from '../../constants/weathers' ;
+import { SUN } from '../../constants/weathers' ;
 
 // constantes para el API
 const location = "Mexico City,mx";
@@ -20,37 +21,53 @@ const data = {
     humidity: 10,
     wind: '10 m/s'
 };
-
-const data2 = {
-    temperature: 15,
-    weatherState: WINDY,
-    humidity: 20,
-    wind: '10 m/s'
-};
-
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 class WeatherLocation extends Component {
     
     constructor () {
         super();
         this.state = { 
-            city: 'Barcelona',
+            city: 'Mexico City',
             data: data
         };
     }
+
+    getTemp = kelvin => {
+        return convert(kelvin).from('K').to('C').toFixed(2);
+    }
+
+    getWeatherState = weather_data => {
+        return SUN
+    };
+
+    getData = weather_data => {
+        const { humidity, temp } = weather_data.main;
+        const { speed } = weather_data.wind;
+        const weatherState = SUN;
+        const temperature = this.getTemp(temp);
+
+        const data = {
+            humidity,
+            temperature: temperature,
+            weatherState,
+            wind: `${speed} m/s`
+        };
+
+        return data;
+    };
 
     handleUpdateClick = () => {
         // Declarar un fetch para recuperar la información del servidor
         fetch(api_weather).then(resolve =>{
             return resolve.json();
         }).then(data => {
-            console.log(data)
+            const newWeather = this.getData(data);
+            console.log(newWeather)
             debugger;
+            this.setState({
+                data: newWeather
+            });
         });
-
-        console.log('actualizado');
-
-        this.setState({ data: data2})
     } 
 
     render() {
