@@ -1,9 +1,10 @@
 // Generación de componente
 // Se importa la librería de React
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import transformWeather from "../../services/transformWeather";
-import { api_weather } from "../../constants/api_url";
+import getUrlWeatherByCity from "../../services/getUrlWeatherByCity";
 import Location from './Location'
 import WeatherData from './WheaterData';
 import './styles.css';
@@ -11,10 +12,13 @@ import './styles.css';
 // Se genera el contenido del componente, haciendo uso de Babel, ya en forma JSX
 class WeatherLocation extends Component {
     
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
+
+        const { city } = props;
+
         this.state = { 
-            city: 'Mexico City',
+            city,
             data: null
         };
         console.log("constructor");
@@ -42,6 +46,9 @@ class WeatherLocation extends Component {
     
 
     handleUpdateClick = () => {
+        // importante enviar el parámetro de la ciudad dentro del state
+        const api_weather = getUrlWeatherByCity(this.state.city);
+
         // Declarar un fetch para recuperar la información del servidor
         fetch(api_weather).then(resolve =>{
             return resolve.json();
@@ -67,6 +74,10 @@ class WeatherLocation extends Component {
             </div>
         );
     }
+}
+
+WeatherLocation.propTypes = {
+    city: PropTypes.string.isRequired,
 }
 
 // Se exporta en cualquier parte de la aplicación, está disponible
