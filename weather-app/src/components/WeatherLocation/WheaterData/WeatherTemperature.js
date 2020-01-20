@@ -2,16 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types' // importación de prop-types para validaciones de entradas del componente.
 import WeatherIcons from 'react-weathericons'
 import './styles.css'
-import { CLOUD, CLOUDY, SUN, RAIN, SNOW, WINDY, FOG, } from '../../../constants/weathers' 
+import { CLOUD, SUN, RAIN, SNOW, THUNDER, DRIZZLE  } from '../../../constants/weathers' 
 
 const icons = {
     [CLOUD]: "cloud",
-    [CLOUDY]: "cloudy",
     [SUN]: "day-sunny",
-    [FOG]: "day-fog",
     [RAIN]: "rain",
     [SNOW]: "snow",
-    [WINDY]: "windy"
+    [RAIN]: 'rain',
+    [THUNDER]: 'day-thunderstore',
+    [DRIZZLE]: 'drizzle'
 };
 
 const getWeatherIcon = weatherState => {
