@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import WeatherLocation from './WeatherLocation';
+import './styles.css'
 
 
 const LocationList = ({ cities, onSelectedLocation }) => {
@@ -20,7 +21,7 @@ const LocationList = ({ cities, onSelectedLocation }) => {
 
 
     // Para declarar un elemento debe tener un key único para identificar cada elemento del array de componentes
-    return (<div>       
+    return (<div className="locationList">       
         { strToComponents(cities) } 
     </div>);
 };
