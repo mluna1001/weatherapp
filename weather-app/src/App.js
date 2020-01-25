@@ -22,7 +22,7 @@ class App extends Component {
   constructor() {
     super();
     // Solamente los states se generan en el constructor, en otros lugares hay que utilizar this.SetState()
-    this.state = { city: 'Nueva Ciudad' };
+    this.state = { city: null };
   }
 
   handleSelectionLocation = city => {
@@ -55,8 +55,10 @@ class App extends Component {
           <Col xs={12} md={6}>
             <Paper elevation={4}>
               <div className="details">
-                <ForecastExtended city={ city }>
-                </ForecastExtended>
+                { 
+                  !city ? <h1>No se seleccionó ninguna ciudad</h1> : <ForecastExtended city={ city }>
+                  </ForecastExtended> 
+                }
               </div>
             </Paper>
           </Col>
