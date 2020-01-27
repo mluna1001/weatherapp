@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const ForecastItem = ({ weekDay, hour, data }) => (
     <div>
-        <div>{weekDay} Hora: {hour} hs</div>
+        <div><h3>{weekDay}- {hour} hs</h3></div>
         <WheaterData data={data}></WheaterData>
     </div>
 );
